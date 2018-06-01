@@ -63,7 +63,6 @@ class PrismicVress {
       const iddir = (id) ? `/${id}` : ''
       const type = post.type
       const filedir = `${contentsPath}/${post.type}`
-      debug('fileTypeIndex:', this.config.fileTypeIndex)
 
 
       const filename = (this.config.fileTypeIndex) ? `${filedir}${iddir}/index.md` : `${filedir}${iddir}.md`
