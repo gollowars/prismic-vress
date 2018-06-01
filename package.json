@@ -8,6 +8,10 @@
     "build": "backpack build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gollowars/prismic-vress"
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
