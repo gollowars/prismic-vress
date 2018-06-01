@@ -2,7 +2,7 @@ import fs from 'fs-extra'
 import clone from 'clone'
 import axios from 'axios'
 
-const debug = require('debug')('vpress')
+const debug = require('debug')('prismic-vress')
 
 function makeKeyFromTree(searchTreeList) {
   return searchTreeList.map((obj, index) => {
@@ -64,7 +64,7 @@ export default class Util {
       return eval(`post${key}`)
     })
   }
-  
+
   static overrideCopyPost(searchTreeList, object, publishPath) {
     let copy = clone(object)
     makeKeyFromTree(searchTreeList)
@@ -97,5 +97,5 @@ export default class Util {
     })
   }
 
-  
+
 }

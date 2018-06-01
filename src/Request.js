@@ -11,10 +11,10 @@ class Request {
 
   }
 
-  getAll(endpoint) {
+  getAll(endpoint,query = '') {
     return new Promise((resolve, reject) => {
       Prismic.api(endpoint).then(function (api) {
-        return api.query(""); // An empty query will return all the documents
+        return api.query(query); // An empty query will return all the documents
       }).then(function (response) {
         // console.log("Documents: ", response.results);
         resolve(response.results)
