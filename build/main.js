@@ -241,10 +241,10 @@ class Request {
 
   __init() {}
 
-  getAll(endpoint, query = '') {
+  getAll(endpoint, query = []) {
     return new Promise((resolve, reject) => {
       __WEBPACK_IMPORTED_MODULE_0_prismic_javascript___default.a.api(endpoint).then(function (api) {
-        return api.query(query); // An empty query will return all the documents
+        return api.query(...query); // An empty query will return all the documents
       }).then(function (response) {
         // console.log("Documents: ", response.results);
         resolve(response.results);
@@ -348,19 +348,25 @@ class Util {
 
   static async downloadMedia(url, publishpath) {
     return new Promise(async (resolve, reject) => {
-      try {
-        debug('downloading...: ', url);
-        const res = await __WEBPACK_IMPORTED_MODULE_2_axios___default.a.get(url, {
-          responseType: 'arraybuffer'
-        });
-        const dirs = url.split('/');
-        const filename = dirs[dirs.length - 1];
-        const output = `${publishpath}/${filename}`;
-        __WEBPACK_IMPORTED_MODULE_0_fs_extra___default.a.writeFileSync(output, new Buffer(res.data), 'binary');
+      const dirs = url.split('/');
+      const filename = dirs[dirs.length - 1];
+      const output = `${publishpath}/${filename}`;
+      const exitFlag = __WEBPACK_IMPORTED_MODULE_0_fs_extra___default.a.pathExistsSync(output);
+      if (exitFlag) {
+        debug('exited file, skip download: ', url);
         resolve();
-      } catch (e) {
-        debug('error url:', url);
-        reject(e);
+      } else {
+        try {
+          debug('downloading...: ', url);
+          const res = await __WEBPACK_IMPORTED_MODULE_2_axios___default.a.get(url, {
+            responseType: 'arraybuffer'
+          });
+          __WEBPACK_IMPORTED_MODULE_0_fs_extra___default.a.writeFileSync(output, new Buffer(res.data), 'binary');
+          resolve();
+        } catch (e) {
+          debug('error url:', url);
+          reject(e);
+        }
       }
     });
   }

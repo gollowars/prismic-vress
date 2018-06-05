@@ -80,19 +80,25 @@ export default class Util {
 
   static async downloadMedia(url, publishpath) {
     return new Promise(async (resolve,reject)=>{
-      try {
-        debug('downloading...: ', url)
-        const res = await axios.get(url, {
-          responseType: 'arraybuffer'
-        })
-        const dirs = url.split('/')
-        const filename = dirs[dirs.length - 1]
-        const output = `${publishpath}/${filename}`
-        fs.writeFileSync(output, new Buffer(res.data), 'binary');
+      const dirs = url.split('/')
+      const filename = dirs[dirs.length - 1]
+      const output = `${publishpath}/${filename}`
+      const exitFlag = fs.pathExistsSync(output)
+      if (exitFlag) {
+        debug('exited file, skip download: ', url)
         resolve()
-      } catch (e) {
-        debug('error url:',url)
-        reject(e)
+      }else {
+        try {
+          debug('downloading...: ', url)
+          const res = await axios.get(url, {
+            responseType: 'arraybuffer'
+          })
+          fs.writeFileSync(output, new Buffer(res.data), 'binary');
+          resolve()
+        } catch (e) {
+          debug('error url:', url)
+          reject(e)
+        }
       }
     })
   }
