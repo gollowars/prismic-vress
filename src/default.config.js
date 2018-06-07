@@ -1,7 +1,7 @@
 import path from 'path'
 
 export default {
-  dist: path.join(__dirname, 'dist'),
+  dist: 'dist',
   assetsDirName: `assets`,
   contentsDirName: 'contents',
   mediaDownload: true,

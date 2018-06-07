@@ -392,12 +392,12 @@ module.exports = require("url");
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(__dirname) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_path__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_path__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_path___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_path__);
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-  dist: __WEBPACK_IMPORTED_MODULE_0_path___default.a.join(__dirname, 'dist'),
+  dist: 'dist',
   assetsDirName: `assets`,
   contentsDirName: 'contents',
   mediaDownload: true,
@@ -407,7 +407,6 @@ module.exports = require("url");
   allPostsJsonName: 'all.json',
   query: ''
 });
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, "src"))
 
 /***/ })
 /******/ ]);
