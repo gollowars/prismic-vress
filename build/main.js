@@ -62,7 +62,7 @@ module.exports =
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 5);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -81,29 +81,23 @@ module.exports = require("fs-extra");
 /* 2 */
 /***/ (function(module, exports) {
 
-module.exports = require("path");
+module.exports = require("clone");
 
 /***/ }),
 /* 3 */
 /***/ (function(module, exports) {
 
-module.exports = require("clone");
+module.exports = require("chalk");
 
 /***/ }),
 /* 4 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = require("debug");
+module.exports = __webpack_require__(5);
+
 
 /***/ }),
 /* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(6);
-
-
-/***/ }),
-/* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -112,17 +106,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_prismic_javascript___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_prismic_javascript__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_fs_extra__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_fs_extra___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_fs_extra__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_js_yaml__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_js_yaml__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_js_yaml___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_js_yaml__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_path__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_path__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_path___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_path__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_clone__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_clone__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_clone___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_clone__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Request__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Util__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_url__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_url__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_url___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_url__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__default_config__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__default_config__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__default_config___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__default_config__);
 
 
 
@@ -134,7 +129,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-const debug = __webpack_require__(4)('prismic-vress');
+const chalk = __webpack_require__(3);
 
 function postParser(post) {
   return post;
@@ -147,7 +142,7 @@ class PrismicVress {
 
   async generate(config, parser = postParser) {
 
-    this.config = Object.assign(__WEBPACK_IMPORTED_MODULE_8__default_config__["a" /* default */], config);
+    this.config = Object.assign(__WEBPACK_IMPORTED_MODULE_8__default_config___default.a, config);
 
     if (!this.config.endpoint) {
       throw console.error('must specify endpoint');
@@ -214,25 +209,31 @@ class PrismicVress {
       let outputdir = filename.split('/');
       outputdir.length = outputdir.length - 1;
       __WEBPACK_IMPORTED_MODULE_6__Util__["a" /* default */].mkdir(String(outputdir.join('/')));
-      debug('write md:', filename);
+      console.log(`${chalk.blue(`Write a markdown file`)}`, filename);
       __WEBPACK_IMPORTED_MODULE_1_fs_extra___default.a.writeFileSync(filename, dumpStr);
     });
 
     const allPostJson = { posts: newPostList };
     const allPostFilePath = __WEBPACK_IMPORTED_MODULE_3_path___default.a.join(assetPath, this.config.allPostsJsonName);
-    debug('write json:', allPostFilePath);
+    console.log(`${chalk.blue(`Write All json`)}`, allPostFilePath);
     __WEBPACK_IMPORTED_MODULE_1_fs_extra___default.a.writeFileSync(allPostFilePath, JSON.stringify(allPostJson));
   }
 }
-process.on('unhandledRejection', console.dir);
+// process.on('unhandledRejection', console.dir);
 
 /* harmony default export */ __webpack_exports__["default"] = (new PrismicVress());
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports) {
+
+module.exports = require("js-yaml");
 
 /***/ }),
 /* 7 */
 /***/ (function(module, exports) {
 
-module.exports = require("js-yaml");
+module.exports = require("path");
 
 /***/ }),
 /* 8 */
@@ -275,15 +276,16 @@ class Request {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_fs_extra__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_fs_extra___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_fs_extra__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_clone__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_clone__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_clone___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_clone__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_axios__);
 
 
 
+const chalk = __webpack_require__(3);
 
-const debug = __webpack_require__(4)('prismic-vress');
+const debug = __webpack_require__(11)('prismic-vress');
 
 function makeKeyFromTree(searchTreeList) {
   return searchTreeList.map((obj, index) => {
@@ -363,18 +365,19 @@ class Util {
       const output = `${publishpath}/${filename}`;
       const exitFlag = __WEBPACK_IMPORTED_MODULE_0_fs_extra___default.a.pathExistsSync(output);
       if (exitFlag) {
-        debug('exited file, skip download: ', url);
+
+        console.log(`${chalk.cyan(`file is exited, skip download : `)}`, url);
         resolve();
       } else {
         try {
-          debug('downloading...: ', url);
+          console.log(`${chalk.blue(`Downloading...: `)}`, url);
           const res = await __WEBPACK_IMPORTED_MODULE_2_axios___default.a.get(url, {
             responseType: 'arraybuffer'
           });
           __WEBPACK_IMPORTED_MODULE_0_fs_extra___default.a.writeFileSync(output, new Buffer(res.data), 'binary');
           resolve();
         } catch (e) {
-          debug('error url:', url);
+          console.log(`${chalk.red(`Error cannot download: `)}`, url);
           reject(e);
         }
       }
@@ -395,18 +398,19 @@ module.exports = require("axios");
 /* 11 */
 /***/ (function(module, exports) {
 
-module.exports = require("url");
+module.exports = require("debug");
 
 /***/ }),
 /* 12 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_path__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_path___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_path__);
+module.exports = require("url");
 
+/***/ }),
+/* 13 */
+/***/ (function(module, exports) {
 
-/* harmony default export */ __webpack_exports__["a"] = ({
+module.exports = {
   dist: 'dist',
   assetsDirName: `assets`,
   contentsDirName: 'contents',
@@ -416,7 +420,7 @@ module.exports = require("url");
   cleandir: false,
   allPostsJsonName: 'all.json',
   query: ''
-});
+};
 
 /***/ })
 /******/ ]);

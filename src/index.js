@@ -9,7 +9,7 @@ import Util from './Util'
 import { parse } from 'url';
 import DefaultConfig from './default.config'
 
-const debug = require('debug')('prismic-vress')
+const chalk = require('chalk')
 
 function postParser(post) {
   return post
@@ -90,17 +90,18 @@ class PrismicVress {
       let outputdir = filename.split('/')
       outputdir.length = outputdir.length - 1
       Util.mkdir(String(outputdir.join('/')))
-      debug('write md:', filename)
+      console.log(`${chalk.blue(`Write a markdown file`)}`, filename)
       fs.writeFileSync(filename, dumpStr)
     })
 
 
+
     const allPostJson = { posts: newPostList }
     const allPostFilePath = path.join(assetPath, this.config.allPostsJsonName)
-    debug('write json:', allPostFilePath)
+    console.log(`${chalk.blue(`Write All json`)}`, allPostFilePath)
     fs.writeFileSync(allPostFilePath, JSON.stringify(allPostJson))
   }
 }
-process.on('unhandledRejection', console.dir);
+// process.on('unhandledRejection', console.dir);
 
 export default new PrismicVress()

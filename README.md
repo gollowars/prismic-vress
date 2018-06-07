@@ -1,13 +1,10 @@
 # PrismicVress
-PrismicVress is mdfile,media generator from prismicioAPI for vuepress
+PrismicVress is mdfile,media generator fetched prismicioAPI for vuepress
 
 ## ease to use
 ```js
-import PrismicVress from 'prismic-vress'
-PrismicVress.generate({
-  endpoint: `https://YOUR_PRISMIC_DOMAIN.cdn.prismic.io/api/v2`,
-  dist: 'docs'
-})
+yarn global add prismic-vress
+prismic-vress generate --endpoint https://YOUR_PRISMIC_DOMAIN.cdn.prismic.io/api/v2
 ```
 
 ### check publish dir
@@ -17,7 +14,7 @@ docs
 └── contents
 ```
 
-## Custom
+## Script
 
 ```js
 import path from 'path'

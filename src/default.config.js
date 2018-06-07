@@ -1,7 +1,5 @@
-import path from 'path'
-
-export default {
-  dist: 'dist',
+module.exports = {
+  dist: 'docs',
   assetsDirName: `assets`,
   contentsDirName: 'contents',
   mediaDownload: true,

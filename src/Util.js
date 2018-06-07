@@ -1,6 +1,8 @@
 import fs from 'fs-extra'
 import clone from 'clone'
 import axios from 'axios'
+const chalk = require('chalk')
+
 
 const debug = require('debug')('prismic-vress')
 
@@ -85,18 +87,19 @@ export default class Util {
       const output = `${publishpath}/${filename}`
       const exitFlag = fs.pathExistsSync(output)
       if (exitFlag) {
-        debug('exited file, skip download: ', url)
+
+        console.log(`${chalk.cyan(`file is exited, skip download : `)}`, url)
         resolve()
       }else {
         try {
-          debug('downloading...: ', url)
+          console.log(`${chalk.blue(`Downloading...: `)}`, url)
           const res = await axios.get(url, {
             responseType: 'arraybuffer'
           })
           fs.writeFileSync(output, new Buffer(res.data), 'binary');
           resolve()
         } catch (e) {
-          debug('error url:', url)
+          console.log(`${chalk.red(`Error cannot download: `)}`, url)
           reject(e)
         }
       }
