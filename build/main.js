@@ -184,6 +184,14 @@ class PrismicVress {
         }
       }
 
+      const id = post.uid;
+      const iddir = id ? `/${id}` : '';
+      const type = post.type;
+      const link = this.config.fileTypeIndex ? `/${type}${iddir}/` : `/${type}${iddir}.html`;
+
+      // add link
+      newPost.link = link;
+
       newPostList.push(newPost);
     }
 
@@ -192,15 +200,11 @@ class PrismicVress {
       const id = post.uid;
       const iddir = id ? `/${id}` : '';
       const type = post.type;
-      const link = this.config.fileTypeIndex ? `/${type}${iddir}/` : `/${type}${iddir}.html`;
       if (type) {
         post.layout = type;
       }
       const filedir = `${contentsPath}/${type}`;
       const filename = this.config.fileTypeIndex ? `${filedir}${iddir}/index.md` : `${filedir}${iddir}.md`;
-
-      // add link
-      post.link = link;
 
       // custom
       post = postCustomParser(post, index, newPostList);
