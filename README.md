@@ -6,6 +6,7 @@ PrismicVress is mdfile,media generator from prismicioAPI for vuepress
 ```js
 import path from 'path'
 import PrismicVress from 'prismic-vress'
+const Prismic = require('prismic-javascript')
 
 const Config = {
   endpoint: `https://YOUR_PRISMIC_DOMAIN.cdn.prismic.io/api/v2`,
@@ -16,6 +17,12 @@ const Config = {
   publishAssetsPath: '/assets/images/',
   fileTypeIndex: true,
   cleandir: false,
+  query: [
+    Prismic.Predicates.at('document.type', 'works'),
+    {
+      orderings: '[my.works.date desc]'
+    }
+  ]
 }
 
 // generate markdown file and download images
