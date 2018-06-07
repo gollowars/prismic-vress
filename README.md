@@ -43,7 +43,7 @@ const Config = {
 
 // generate markdown file and download images
 // return promise
-PrismicVress.generate(Config,function (post){
+PrismicVress.generate(Config,function (post, index, list){
   // custom frontmatter
   let newPost = post
   newPost.pageClass = `${newPost.layout}-class`

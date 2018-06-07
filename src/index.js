@@ -59,32 +59,37 @@ class PrismicVress {
           await Util.downloadMedia(url, mediaPath)
         }
       }
+
+      newPostList.push(newPost)
+    }
+
+    // write markdown
+    newPostList.forEach((post,index)=>{
       const id = post.uid
       const iddir = (id) ? `/${id}` : ''
       const type = post.type
-      const filedir = `${contentsPath}/${post.type}`
-
-
-      const filename = (this.config.fileTypeIndex) ? `${filedir}${iddir}/index.md` : `${filedir}${iddir}.md`
-      const link = (this.config.fileTypeIndex) ? `/${post.type}${iddir}/` : `/${post.type}${iddir}.html`
-      newPost.link = link
-
-      if( type ) {
-        newPost.layout = type
+      const link = (this.config.fileTypeIndex) ? `/${type}${iddir}/` : `/${type}${iddir}.html`
+      if (type) {
+        post.layout = type
       }
+      const filedir = `${contentsPath}/${type}`
+      const filename = (this.config.fileTypeIndex) ? `${filedir}${iddir}/index.md` : `${filedir}${iddir}.md`
 
+      // add link
+      post.link = link
 
-      newPost = postCustomParser(newPost)
+      // custom
+      post = postCustomParser(post, index, newPostList)
 
-      newPostList.push(newPost)
-      const yamlStr = yaml.safeDump(newPost)
+      const yamlStr = yaml.safeDump(post)
       const dumpStr = `---\n${yamlStr}---`
       let outputdir = filename.split('/')
       outputdir.length = outputdir.length - 1
       Util.mkdir(String(outputdir.join('/')))
       debug('write md:', filename)
       fs.writeFileSync(filename, dumpStr)
-    }
+    })
+
 
     const allPostJson = { posts: newPostList }
     const allPostFilePath = path.join(assetPath, this.config.allPostsJsonName)

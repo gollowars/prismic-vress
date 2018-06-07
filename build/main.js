@@ -183,30 +183,36 @@ class PrismicVress {
           await __WEBPACK_IMPORTED_MODULE_6__Util__["a" /* default */].downloadMedia(url, mediaPath);
         }
       }
+
+      newPostList.push(newPost);
+    }
+
+    // write markdown
+    newPostList.forEach((post, index) => {
       const id = post.uid;
       const iddir = id ? `/${id}` : '';
       const type = post.type;
-      const filedir = `${contentsPath}/${post.type}`;
-
-      const filename = this.config.fileTypeIndex ? `${filedir}${iddir}/index.md` : `${filedir}${iddir}.md`;
-      const link = this.config.fileTypeIndex ? `/${post.type}${iddir}/` : `/${post.type}${iddir}.html`;
-      newPost.link = link;
-
+      const link = this.config.fileTypeIndex ? `/${type}${iddir}/` : `/${type}${iddir}.html`;
       if (type) {
-        newPost.layout = type;
+        post.layout = type;
       }
+      const filedir = `${contentsPath}/${type}`;
+      const filename = this.config.fileTypeIndex ? `${filedir}${iddir}/index.md` : `${filedir}${iddir}.md`;
 
-      newPost = postCustomParser(newPost);
+      // add link
+      post.link = link;
 
-      newPostList.push(newPost);
-      const yamlStr = __WEBPACK_IMPORTED_MODULE_2_js_yaml___default.a.safeDump(newPost);
+      // custom
+      post = postCustomParser(post, index, newPostList);
+
+      const yamlStr = __WEBPACK_IMPORTED_MODULE_2_js_yaml___default.a.safeDump(post);
       const dumpStr = `---\n${yamlStr}---`;
       let outputdir = filename.split('/');
       outputdir.length = outputdir.length - 1;
       __WEBPACK_IMPORTED_MODULE_6__Util__["a" /* default */].mkdir(String(outputdir.join('/')));
       debug('write md:', filename);
       __WEBPACK_IMPORTED_MODULE_1_fs_extra___default.a.writeFileSync(filename, dumpStr);
-    }
+    });
 
     const allPostJson = { posts: newPostList };
     const allPostFilePath = __WEBPACK_IMPORTED_MODULE_3_path___default.a.join(assetPath, this.config.allPostsJsonName);
