@@ -2,6 +2,7 @@
   "name": "prismic-vress",
   "version": "0.1.0",
   "description": "",
+  "private": true,
   "main": "build/main.js",
   "bin": {
     "prismic-vress": "bin/prismicvress.js"
