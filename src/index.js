@@ -61,9 +61,9 @@ class PrismicVress {
       }
 
       const id = post.uid
-      const iddir = (id) ? `/${id}` : ''
+      const iddir = (id) ? `${id}` : ''
       const type = post.type
-      const link = (this.config.fileTypeIndex) ? `/${type}${iddir}/` : `/${type}${iddir}.html`
+      const link = (this.config.fileTypeIndex) ? `/${type}/${iddir}/` : `/${type}/${iddir}.html`
 
       // add link
       newPost.link = link
