@@ -1,5 +1,5 @@
 # PrismicVress
-PrismicVress is mdfile,media generator fetched prismicioAPI for vuepress
+PrismicVress is a assets generator that fetch API for vuepress
 
 ## ease to use
 ```js
