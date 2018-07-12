@@ -16,11 +16,12 @@ import nprogress from 'nprogress'
 import Home from './Home.vue'
 import Page from './Page.vue'
 import works from './Works'
+import Profile from './Profile'
 import { pathToComponentName } from '@app/util'
 import { resolveSidebarItems } from './util'
 
 export default {
-  components: { Home, Page, works },
+  components: { Home, Page, works, Profile },
   data () {
     return {
     }

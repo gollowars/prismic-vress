@@ -8,7 +8,7 @@
       .section(v-for=`(post,index) in posts`)
         router-link(:to=`post.link`)
           p.image
-            img(:src=`post.data.thumbnail.url`)
+            img(:src=`post.data.topimage.url`)
           p.title {{post.title}}
 
 
@@ -30,6 +30,7 @@ export default {
       return this.$page.frontmatter
     },
     posts() {
+      console.log('posts.posts:',posts.posts)
       return posts.posts
     },
     actionLink () {
