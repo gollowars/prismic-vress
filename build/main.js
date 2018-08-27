@@ -175,7 +175,7 @@ class PrismicVress {
         newPost = __WEBPACK_IMPORTED_MODULE_6__Util__["a" /* default */].overrideCopyPost(searchTreeList, post, `${config.publishAssetsPath}`);
         __WEBPACK_IMPORTED_MODULE_6__Util__["a" /* default */].mkdir(mediaPath);
         for (let url of medialist) {
-          await __WEBPACK_IMPORTED_MODULE_6__Util__["a" /* default */].downloadMedia(url, mediaPath);
+          await __WEBPACK_IMPORTED_MODULE_6__Util__["a" /* default */].downloadMedia(decodeURIComponent(url), mediaPath);
         }
       }
 

@@ -56,7 +56,7 @@ class PrismicVress {
         newPost = Util.overrideCopyPost(searchTreeList, post, `${config.publishAssetsPath}`)
         Util.mkdir(mediaPath)
         for (let url of medialist) {
-          await Util.downloadMedia(url, mediaPath)
+          await Util.downloadMedia(decodeURIComponent(url), mediaPath)
         }
       }
 
