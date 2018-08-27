@@ -329,7 +329,7 @@ class Util {
           if (key === searchKey && value.match(valRegExp)) {
             treeList.push({
               place: place,
-              value: value
+              value: decodeURIComponent(value)
             });
           }
         }
@@ -349,7 +349,7 @@ class Util {
   static overrideCopyPost(searchTreeList, object, publishPath) {
     let copy = __WEBPACK_IMPORTED_MODULE_1_clone___default()(object);
     makeKeyFromTree(searchTreeList).forEach((key, index) => {
-      const value = eval(`object${key}`);
+      const value = decodeURIComponent(eval(`object${key}`));
       const dirs = value.split('/');
       const filename = dirs[dirs.length - 1];
       const newvalue = publishPath + filename;

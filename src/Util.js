@@ -49,7 +49,7 @@ export default class Util {
           if (key === searchKey && value.match(valRegExp)) {
             treeList.push({
               place: place,
-              value: value
+              value: decodeURIComponent(value)
             })
           }
         }
@@ -71,7 +71,7 @@ export default class Util {
     let copy = clone(object)
     makeKeyFromTree(searchTreeList)
     .forEach((key, index) => {
-      const value = eval(`object${key}`)
+      const value = decodeURIComponent(eval(`object${key}`))
       const dirs = value.split('/')
       const filename = dirs[dirs.length - 1]
       const newvalue = publishPath + filename
